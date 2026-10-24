@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>For You ❤️</title>
+<meta name="description" content="A little message made with love, just for you."/>
+<meta property="og:title" content="For You ❤️"/>
+<meta property="og:description" content="A little message made with love, just for you."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://i.ytimg.com/vi/XzAeHP6QpRE/hqdefault.jpg"/>
+<meta name="theme-color" content="#ff4d6d"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --pink:#ff4d6d; --pink-soft:#ff8fa3; --pink-pale:#ffd6e0;
+  --red:#c9184a; --red-deep:#a4133c;
+  --lavender:#b892ff; --lavender-pale:#f3e8ff;
+  --cream:#fff8f0; --ink:#4a1530;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(160deg,#fff5f7 0%,#ffe3ec 30%,#f3e8ff 65%,#fff3e6 100%);
+  background-size:220% 220%;animation:bgShift 18s ease-in-out infinite;
+  min-height:100vh;overflow-x:hidden;
+}
+body.locked{overflow:hidden;height:100vh}
+@keyframes bgShift{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+
+/* ---------- loader ---------- */
+#loader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;background:linear-gradient(160deg,#fff0f4,#ffe3ec,#f3e8ff);transition:opacity .7s ease,visibility .7s}
+#loader.done{opacity:0;visibility:hidden}
+#loader .heart{font-size:56px;animation:beat 1.1s ease-in-out infinite;filter:drop-shadow(0 6px 18px rgba(201,24,74,.45))}
+#loader p{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);opacity:.75}
+@keyframes beat{0%,100%{transform:scale(1)}25%{transform:scale(1.14)}45%{transform:scale(.96)}60%{transform:scale(1.08)}}
+
+/* ---------- ambient layers ---------- */
+#petals,#sparkles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.petal{position:absolute;top:-8vh;border-radius:100% 0 100% 0;background:linear-gradient(135deg,#ffc2d4,#ff8fa3 60%,#ff5c8a);opacity:.85;animation:fall linear infinite;box-shadow:0 2px 6px rgba(201,24,74,.18)}
+@keyframes fall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0deg)}
+  25%{transform:translate3d(4vw,22vh,0) rotate(95deg)}
+  50%{transform:translate3d(-3vw,52vh,0) rotate(180deg)}
+  75%{transform:translate3d(3vw,80vh,0) rotate(265deg)}
+  100%{transform:translate3d(-2vw,112vh,0) rotate(360deg)}
+}
+.star{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px rgba(255,255,255,.85);animation:twinkle ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.12;transform:scale(.7)}50%{opacity:.95;transform:scale(1.15)}}
+
+/* ---------- hero ---------- */
+#hero{position:relative;z-index:5;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px;transition:opacity .9s ease,transform .9s ease,visibility .9s}
+#hero.opened{opacity:0;visibility:hidden;transform:translateY(-40px) scale(.97)}
+.hero-heart{position:relative;width:150px;height:150px;margin-bottom:26px;animation:beat 1.4s ease-in-out infinite}
+.hero-heart svg{width:100%;height:100%;filter:drop-shadow(0 0 26px rgba(255,77,109,.55))}
+.hero-heart::after{content:"";position:absolute;inset:-22px;border-radius:50%;border:2px solid rgba(255,77,109,.35);animation:ringPulse 2.2s ease-out infinite}
+@keyframes ringPulse{0%{transform:scale(.75);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.hero-title{font-family:'Great Vibes',cursive;font-size:clamp(46px,11vw,84px);color:var(--red-deep);text-shadow:0 3px 20px rgba(201,24,74,.22);line-height:1.15}
+.hero-msg{max-width:520px;margin:20px auto 34px;font-size:clamp(15px,4.2vw,18px);font-weight:300;line-height:1.7;color:#6d2044}
+.btn-glow{
+  position:relative;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:600;
+  font-size:clamp(15px,4.4vw,18px);color:#fff;padding:16px 34px;border-radius:999px;
+  background:linear-gradient(135deg,var(--pink) 0%,var(--red) 100%);
+  box-shadow:0 8px 28px rgba(201,24,74,.45),0 0 0 0 rgba(255,77,109,.5);
+  animation:btnGlow 2s ease-in-out infinite;transition:transform .25s ease;
+}
+.btn-glow:active{transform:scale(.94)}
+@keyframes btnGlow{0%,100%{box-shadow:0 8px 28px rgba(201,24,74,.45),0 0 0 0 rgba(255,77,109,.45)}50%{box-shadow:0 8px 34px rgba(201,24,74,.6),0 0 0 16px rgba(255,77,109,0)}}
+.scroll-hint{margin-top:46px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);opacity:.6;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* ---------- main ---------- */
+#main{position:relative;z-index:5;opacity:0;visibility:hidden;transform:translateY(24px);transition:opacity 1s ease .25s,transform 1s ease .25s,visibility 1s}
+#main.opened{opacity:1;visibility:visible;transform:none}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+section{padding:64px 0 20px;scroll-margin-top:20px}
+.sec-title{font-family:'Great Vibes',cursive;font-size:clamp(34px,8.5vw,52px);color:var(--red-deep);text-align:center;margin-bottom:8px}
+.sec-sub{text-align:center;font-size:13px;color:#8a3a5c;opacity:.8;margin-bottom:28px;font-weight:300}
+.card-soft{
+  background:rgba(255,255,255,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,143,163,.35);border-radius:26px;
+  box-shadow:0 14px 40px rgba(201,24,74,.14);
+}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* letter */
+#letter .paper{padding:34px 26px;position:relative}
+#letter .paper::before{content:"💌";position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:34px;filter:drop-shadow(0 6px 12px rgba(201,24,74,.3))}
+#typed{white-space:pre-wrap;font-size:clamp(15px,4.2vw,17px);line-height:1.85;font-weight:300;min-height:300px}
+.cursor{display:inline-block;width:2px;height:1.1em;background:var(--pink);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tap-skip{text-align:center;font-size:11px;color:#a45575;opacity:.65;margin-top:14px;letter-spacing:.06em}
+
+/* gift */
+#gift{text-align:center}
+.gift-stage{position:relative;display:inline-block;margin:18px 0 8px;cursor:pointer;transform:scale(1);transition:transform .3s}
+.gift-stage:active{transform:scale(.96)}
+.gift-box{position:relative;width:130px;height:120px;margin:0 auto}
+.gift-body{position:absolute;bottom:0;left:10px;right:10px;height:84px;border-radius:12px;background:linear-gradient(160deg,#ff5c8a,#c9184a);box-shadow:0 12px 26px rgba(201,24,74,.35)}
+.gift-body::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:20px;transform:translateX(-50%);background:linear-gradient(160deg,#ffd166,#ffb703)}
+.gift-lid{position:absolute;top:6px;left:0;right:0;height:34px;border-radius:10px;background:linear-gradient(160deg,#ff8fa3,#ff4d6d);box-shadow:0 8px 18px rgba(201,24,74,.3);transition:transform .8s cubic-bezier(.34,1.56,.64,1),opacity .8s}
+.gift-lid::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:20px;transform:translateX(-50%);background:linear-gradient(160deg,#ffd166,#ffb703)}
+.gift-bow{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:26px;z-index:2;transition:opacity .5s}
+.gift-stage.open .gift-lid{transform:translate(-46px,-70px) rotate(-32deg);opacity:0}
+.gift-stage.open .gift-bow{opacity:0}
+.gift-msg{max-height:0;opacity:0;overflow:hidden;transition:max-height .9s ease .25s,opacity .9s ease .25s,margin .9s ease .25s}
+.gift-stage.open ~ .gift-msg, .gift-msg.open{max-height:260px;opacity:1;margin-top:22px}
+.gift-msg .card-soft{padding:22px 20px;font-size:15px;line-height:1.75;font-weight:300}
+.gift-hint{font-size:12.5px;color:#8a3a5c;opacity:.75;margin-top:14px;letter-spacing:.05em}
+
+/* reasons */
+.reason-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.rcard{perspective:900px;height:168px;cursor:pointer}
+.rcard-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.2,.2,1)}
+.rcard.flipped .rcard-inner{transform:rotateY(180deg)}
+.rface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center}
+.rfront{background:linear-gradient(155deg,#fff 0%,#ffe9f0 100%);border:1px solid rgba(255,143,163,.45);box-shadow:0 10px 26px rgba(201,24,74,.12)}
+.rfront .em{font-size:38px;filter:drop-shadow(0 4px 10px rgba(201,24,74,.25))}
+.rfront .t{font-weight:600;font-size:14.5px;color:var(--red-deep)}
+.rback{background:linear-gradient(155deg,var(--pink) 0%,var(--red) 100%);color:#fff;transform:rotateY(180deg);box-shadow:0 10px 26px rgba(201,24,74,.3)}
+.rback p{font-size:13px;line-height:1.6;font-weight:300}
+
+/* talk */
+#talk .card-soft{padding:32px 24px;text-align:center}
+.talk-q{font-size:clamp(18px,5vw,22px);font-weight:500;color:var(--red-deep);margin-bottom:24px}
+.talk-btns{display:flex;flex-direction:column;gap:14px;align-items:center}
+.talk-btn{width:100%;max-width:340px;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;padding:15px 22px;border-radius:999px;transition:transform .25s,box-shadow .25s}
+.talk-btn:active{transform:scale(.96)}
+.talk-yes{background:linear-gradient(135deg,var(--pink),var(--red));color:#fff;box-shadow:0 8px 22px rgba(201,24,74,.35)}
+.talk-time{background:rgba(255,255,255,.85);color:var(--red-deep);border:1.5px solid rgba(255,143,163,.6)!important;box-shadow:0 6px 16px rgba(201,24,74,.1)}
+.talk-resp{margin-top:22px;font-size:15px;line-height:1.75;font-weight:300;max-height:0;opacity:0;overflow:hidden;transition:max-height .7s ease,opacity .7s ease,margin .7s}
+.talk-resp.show{max-height:200px;opacity:1}
+.talk-resp .bubble{display:inline-block;background:linear-gradient(155deg,#fff,#fff0f4);border:1px solid rgba(255,143,163,.4);border-radius:18px;padding:16px 20px;box-shadow:0 8px 20px rgba(201,24,74,.1)}
+.privacy{margin-top:20px;font-size:11.5px;color:#a45575;opacity:.75;line-height:1.6}
+
+/* final */
+#final{text-align:center;padding-bottom:90px}
+.final-heart{position:relative;width:170px;height:170px;margin:10px auto 26px;animation:beat 1.5s ease-in-out infinite}
+.final-heart svg{width:100%;height:100%;filter:drop-shadow(0 0 34px rgba(255,77,109,.6))}
+.final-heart .orbit{position:absolute;inset:-26px;animation:spin 9s linear infinite}
+.final-heart .orbit span{position:absolute;font-size:15px;opacity:.9}
+.final-heart .orbit span:nth-child(1){top:0;left:50%}
+.final-heart .orbit span:nth-child(2){top:50%;right:0}
+.final-heart .orbit span:nth-child(3){bottom:0;left:50%}
+.final-heart .orbit span:nth-child(4){top:50%;left:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.final-msg{white-space:pre-wrap;font-size:clamp(15px,4.3vw,17.5px);line-height:1.9;font-weight:300;max-width:520px;margin:0 auto 32px}
+footer{position:relative;z-index:5;text-align:center;padding:26px 16px 110px;font-size:12px;letter-spacing:.08em;color:#a45575;opacity:.8}
+
+/* music pill */
+#music{
+  position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:12px;padding:10px 16px 10px 10px;border-radius:999px;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,143,163,.4);box-shadow:0 12px 34px rgba(201,24,74,.22);
+  max-width:min(92vw,420px);opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s;
+}
+#music.show{opacity:1;visibility:visible}
+.disc{position:relative;width:44px;height:44px;border-radius:50%;flex:none;background:conic-gradient(var(--pink),var(--lavender),var(--pink-soft),var(--red),var(--pink));display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 3px rgba(255,255,255,.65),0 4px 12px rgba(201,24,74,.3)}
+.disc::after{content:"❤️";font-size:15px}
+.disc.spin{animation:discSpin 5s linear infinite}
+@keyframes discSpin{to{transform:rotate(360deg)}}
+.minfo{min-width:0;line-height:1.3}
+.minfo .mt{font-size:12.5px;font-weight:600;color:var(--red-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.minfo .ma{font-size:10.5px;color:#8a3a5c;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.eq{display:none;align-items:flex-end;gap:2.5px;height:14px;margin-left:2px}
+.eq i{width:3px;border-radius:2px;background:var(--pink);animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.18s}.eq i:nth-child(3){animation-delay:.36s}
+.eq.on{display:flex}
+@keyframes eq{0%,100%{height:5px}50%{height:14px}}
+.mbtn{border:none;cursor:pointer;width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:15px;background:linear-gradient(135deg,var(--pink),var(--red));color:#fff;box-shadow:0 4px 12px rgba(201,24,74,.35);transition:transform .2s}
+.mbtn:active{transform:scale(.9)}
+.mbtn.ghost{background:rgba(255,255,255,.9);color:var(--red-deep);border:1px solid rgba(255,143,163,.5);box-shadow:0 3px 8px rgba(201,24,74,.12);text-decoration:none;font-size:14px}
+#yt-holder{position:fixed;bottom:0;right:0;width:2px;height:2px;opacity:.02;pointer-events:none;overflow:hidden}
+
+/* heart burst particles */
+.burst{position:fixed;z-index:90;pointer-events:none;font-size:18px;animation:burstFly 1.15s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes burstFly{
+  0%{transform:translate(0,0) scale(.4);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(1.25) rotate(var(--rot));opacity:0}
+}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(12px);z-index:60;background:rgba(74,21,48,.92);color:#fff;font-size:13px;padding:11px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .4s,transform .4s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (min-width:640px){.talk-btns{flex-direction:row;justify-content:center}.talk-btn{width:auto}}
+</style>
+</head>
+<body class="locked">
+
+<div id="loader"><div class="heart">❤️</div><p>loading love…</p></div>
+<div id="sparkles"></div>
+<div id="petals"></div>
+
+<!-- ═══════ FIRST SCREEN ═══════ -->
+<section id="hero">
+  <div class="hero-heart">
+    <svg viewBox="0 0 100 100"><defs><radialGradient id="hg" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#ff8fa3"/><stop offset="60%" stop-color="#ff4d6d"/><stop offset="100%" stop-color="#c9184a"/></radialGradient></defs><path fill="url(#hg)" d="M50 88 C20 66 8 48 8 32 C8 18 19 9 31 9 C39 9 47 14 50 22 C53 14 61 9 69 9 C81 9 92 18 92 32 C92 48 80 66 50 88 Z"/><circle cx="36" cy="26" r="6" fill="#fff" opacity=".55"/></svg>
+  </div>
+  <h1 class="hero-title" id="heroTitle">Hey You… ❤️</h1>
+  <p class="hero-msg" id="heroMsg"></p>
+  <button class="btn-glow" id="openBtn">Open My Heart 💌</button>
+</section>
+
+<!-- ═══════ MAIN EXPERIENCE ═══════ -->
+<main id="main">
+
+  <section id="letter" class="wrap reveal">
+    <h2 class="sec-title">From My Heart</h2>
+    <p class="sec-sub">a little letter, just for you</p>
+    <div class="card-soft paper"><div id="typed"></div></div>
+    <p class="tap-skip">tap the letter to read it all at once</p>
+  </section>
+
+  <section id="gift" class="wrap reveal">
+    <h2 class="sec-title" id="giftTitle"></h2>
+    <div class="gift-stage" id="giftStage" role="button" aria-label="Open gift">
+      <div class="gift-box">
+        <div class="gift-bow">🎀</div>
+        <div class="gift-lid"></div>
+        <div class="gift-body"></div>
+      </div>
+    </div>
+    <p class="gift-hint" id="giftHint"></p>
+    <div class="gift-msg" id="giftMsg"><div class="card-soft"><p id="giftText"></p></div></div>
+  </section>
+
+  <section id="reasons" class="wrap reveal">
+    <h2 class="sec-title" id="reasonsTitle"></h2>
+    <p class="sec-sub" id="reasonsSub"></p>
+    <div class="reason-grid" id="reasonGrid"></div>
+  </section>
+
+  <section id="talk" class="wrap reveal">
+    <div class="card-soft">
+      <p class="talk-q" id="talkQ"></p>
+      <div class="talk-btns">
+        <button class="talk-btn talk-yes" id="btnYes"></button>
+        <button class="talk-btn talk-time" id="btnTime"></button>
+      </div>
+      <div class="talk-resp" id="talkResp"><span class="bubble" id="talkBubble"></span></div>
+      <p class="privacy" id="privacyNote"></p>
+    </div>
+  </section>
+
+  <section id="final" class="wrap reveal">
+    <div class="final-heart">
+      <div class="orbit"><span>✨</span><span>💖</span><span>✨</span><span>🌸</span></div>
+      <svg viewBox="0 0 100 100"><path fill="url(#hg)" d="M50 88 C20 66 8 48 8 32 C8 18 19 9 31 9 C39 9 47 14 50 22 C53 14 61 9 69 9 C81 9 92 18 92 32 C92 48 80 66 50 88 Z"/><circle cx="36" cy="26" r="6" fill="#fff" opacity=".55"/></svg>
+    </div>
+    <p class="final-msg" id="finalMsg"></p>
+    <button class="btn-glow" id="replayBtn"></button>
+  </section>
+
+  <footer id="footer"></footer>
+</main>
+
+<!-- ═══════ MUSIC PILL ═══════ -->
+<div id="music">
+  <div class="disc" id="disc"></div>
+  <div class="minfo"><div class="mt" id="mTitle"></div><div class="ma" id="mArtist"></div></div>
+  <div class="eq" id="eq"><i></i><i></i><i></i></div>
+  <button class="mbtn" id="playBtn" aria-label="Play or pause">▶</button>
+  <button class="mbtn ghost" id="muteBtn" aria-label="Mute or unmute">🔊</button>
+</div>
+<div id="yt-holder"><div id="yt-player"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+(function(){
+"use strict";
+var C = SITE_CONFIG, $ = function(id){return document.getElementById(id)};
+
+/* ---------- fill content from config ---------- */
+$("heroTitle").textContent = C.hero.heading;
+$("heroMsg").textContent = C.hero.message;
+$("openBtn").textContent = C.hero.button;
+$("giftTitle").textContent = C.gift.title;
+$("giftHint").textContent = C.gift.hint;
+$("giftText").textContent = C.gift.message;
+$("reasonsTitle").textContent = C.reasons.title;
+$("reasonsSub").textContent = C.reasons.subtitle;
+$("talkQ").textContent = C.talk.question;
+$("btnYes").textContent = C.talk.option1;
+$("btnTime").textContent = C.talk.option2;
+$("privacyNote").textContent = C.talk.privacyNote;
+$("finalMsg").textContent = C.final.message;
+$("replayBtn").textContent = C.final.button;
+$("footer").textContent = C.footer;
+$("mTitle").textContent = C.song.title;
+$("mArtist").textContent = C.song.artist;
+
+/* ---------- loader ---------- */
+window.addEventListener("load", function(){
+  setTimeout(function(){ $("loader").classList.add("done"); }, 900);
+});
+
+/* ---------- ambient: petals + stars ---------- */
+(function(){
+  var petals = $("petals"), i, p, s;
+  for(i=0;i<14;i++){
+    p = document.createElement("div"); p.className="petal";
+    s = 10+Math.random()*14;
+    p.style.width=s+"px"; p.style.height=s*0.9+"px";
+    p.style.left=(Math.random()*96)+"vw";
+    p.style.animationDuration=(9+Math.random()*9)+"s";
+    p.style.animationDelay=(-Math.random()*16)+"s";
+    p.style.opacity=(0.5+Math.random()*0.4).toFixed(2);
+    petals.appendChild(p);
+  }
+  var sp = $("sparkles"), st;
+  for(i=0;i<26;i++){
+    st=document.createElement("div"); st.className="star";
+    s=2+Math.random()*3;
+    st.style.width=s+"px"; st.style.height=s+"px";
+    st.style.left=(Math.random()*100)+"vw";
+    st.style.top=(Math.random()*100)+"vh";
+    st.style.animationDuration=(2+Math.random()*3)+"s";
+    st.style.animationDelay=(-Math.random()*4)+"s";
+    sp.appendChild(st);
+  }
+})();
+
+/* ---------- heart burst ---------- */
+function burst(x,y,n){
+  var emo=["❤️","💖","🌸","💕","✨"], i, b;
+  for(i=0;i<(n||10);i++){
+    b=document.createElement("div"); b.className="burst";
+    b.textContent=emo[Math.floor(Math.random()*emo.length)];
+    var a=Math.random()*Math.PI*2, d=60+Math.random()*110;
+    b.style.setProperty("--dx",(Math.cos(a)*d)+"px");
+    b.style.setProperty("--dy",(Math.sin(a)*d-40)+"px");
+    b.style.setProperty("--rot",(Math.random()*140-70)+"deg");
+    b.style.left=x+"px"; b.style.top=y+"px";
+    b.style.fontSize=(13+Math.random()*13)+"px";
+    document.body.appendChild(b);
+    (function(el){setTimeout(function(){el.remove()},1250)})(b);
+  }
+}
+
+/* ---------- toast ---------- */
+var toastT;
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove("show")},2600);
+}
+
+/* ---------- YouTube music ---------- */
+var player=null, playerReady=false, playerFailed=false, musicStarted=false;
+window.onYouTubeIframeAPIReady=function(){
+  try{
+    player=new YT.Player("yt-player",{
+      videoId:C.song.youtubeId,
+      playerVars:{autoplay:0,controls:0,modestbranding:1,playsinline:1,rel:0,iv_load_policy:3},
+      events:{
+        onReady:function(){playerReady=true;},
+        onStateChange:function(e){updateMusicUI(e.data);},
+        onError:function(){playerFailed=true;showSongFallback();}
+      }
+    });
+  }catch(err){playerFailed=true;showSongFallback();}
+};
+setTimeout(function(){ if(!playerReady && !playerFailed && window.YT===undefined){ showSongFallback(); } },8000);
+
+function showSongFallback(){
+  var m=$("music");
+  m.innerHTML='<a class="mbtn ghost" style="width:auto;padding:0 18px;height:40px;font-size:13px;font-weight:500" href="'+C.song.youtubeUrl+'" target="_blank" rel="noopener">▶ Play our song on YouTube</a>';
+  m.classList.add("show");
+}
+function updateMusicUI(state){
+  var playing=(state===1);
+  $("disc").classList.toggle("spin",playing);
+  $("eq").classList.toggle("on",playing);
+  $("playBtn").textContent = playing ? "⏸" : "▶";
+}
+function startMusic(){
+  if(playerFailed) return;
+  if(playerReady && player && player.playVideo){ player.playVideo(); }
+  else { musicStarted=false; var w=setInterval(function(){ if(playerReady){ player.playVideo(); clearInterval(w);} },400); setTimeout(function(){clearInterval(w)},9000); }
+}
+$("playBtn").addEventListener("click",function(){
+  if(!playerReady) return;
+  var st=player.getPlayerState();
+  if(st===1){ player.pauseVideo(); } else { player.playVideo(); }
+});
+$("muteBtn").addEventListener("click",function(){
+  if(!playerReady) return;
+  if(player.isMuted()){ player.unMute(); $("muteBtn").textContent="🔊"; }
+  else { player.mute(); $("muteBtn").textContent="🔇"; }
+});
+
+/* ---------- open my heart ---------- */
+$("openBtn").addEventListener("click",function(e){
+  burst(e.clientX,e.clientY,14);
+  $("hero").classList.add("opened");
+  $("main").classList.add("opened");
+  document.body.classList.remove("locked");
+  if(!musicStarted){ musicStarted=true; startMusic(); }
+  $("music").classList.add("show");
+  setTimeout(function(){ $("letter").classList.add("in"); },500);
+});
+
+/* ---------- typing letter ---------- */
+var typedEl=$("typed"), fullText=C.apology, ti=0, typing=false, typeDone=false;
+function typeStep(){
+  if(ti>=fullText.length){ typeDone=true; var c=$("cursorEl"); if(c)c.remove(); return; }
+  var ch=fullText[ti++];
+  if(ch==="\n"){ typedEl.appendChild(document.createElement("br")); }
+  else{ typedEl.appendChild(document.createTextNode(ch)); }
+  var delay=26;
+  if(ch===".")delay=200; else if(ch===","||ch==="…")delay=150; else if(ch==="\n")delay=240;
+  setTimeout(typeStep,delay);
+}
+function startTyping(){
+  if(typing||typeDone)return; typing=true;
+  typedEl.innerHTML=""; ti=0;
+  var cur=document.createElement("span"); cur.className="cursor"; cur.id="cursorEl";
+  typeStepInner();
+  function typeStepInner(){
+    if(ti>=fullText.length){ typeDone=true; setTimeout(function(){cur.remove()},1800); return; }
+    var ch=fullText[ti++];
+    if(ch==="\n"){ typedEl.insertBefore(document.createElement("br"),cur); }
+    else{ typedEl.insertBefore(document.createTextNode(ch),cur); }
+    if(!cur.parentNode)typedEl.appendChild(cur);
+    var delay=26;
+    if(ch===".")delay=210; else if(ch===","||ch==="…")delay=140; else if(ch==="\n")delay=260;
+    setTimeout(typeStepInner,delay);
+  }
+}
+$("letter").addEventListener("click",function(){
+  if(!typeDone){ typing=true; typeDone=true; ti=fullText.length; typedEl.textContent=fullText; }
+});
+
+/* ---------- gift ---------- */
+$("giftStage").addEventListener("click",function(e){
+  var st=$("giftStage");
+  if(!st.classList.contains("open")){
+    st.classList.add("open"); $("giftMsg").classList.add("open");
+    burst(e.clientX,e.clientY,16);
+  }
+});
+
+/* ---------- reason cards ---------- */
+(function(){
+  var grid=$("reasonGrid");
+  C.reasons.cards.forEach(function(c){
+    var d=document.createElement("div"); d.className="rcard";
+    d.innerHTML='<div class="rcard-inner"><div class="rface rfront"><div class="em">'+c.emoji+'</div><div class="t"></div></div><div class="rface rback"><p></p></div></div>';
+    d.querySelector(".t").textContent=c.title;
+    d.querySelector(".rback p").textContent=c.text;
+    d.addEventListener("click",function(){ d.classList.toggle("flipped"); });
+    grid.appendChild(d);
+  });
+})();
+
+/* ---------- talk ---------- */
+function respond(respText){
+  var r=$("talkResp");
+  $("talkBubble").textContent=respText;
+  r.classList.remove("show"); void r.offsetWidth; r.classList.add("show");
+}
+$("btnYes").addEventListener("click",function(e){ burst(e.clientX,e.clientY,12); respond(C.talk.response1); });
+$("btnTime").addEventListener("click",function(){ respond(C.talk.response2); });
+
+/* ---------- replay song ---------- */
+$("replayBtn").addEventListener("click",function(e){
+  burst(e.clientX,e.clientY,14);
+  if(playerFailed){ window.open(C.song.youtubeUrl,"_blank","noopener"); return; }
+  if(playerReady){ player.seekTo(0,true); player.playVideo(); toast("Playing our song again 🎵"); }
+  else{ startMusic(); toast("Starting our song 🎵"); }
+});
+
+/* ---------- scroll reveals ---------- */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      en.target.classList.add("in");
+      if(en.target.id==="letter"){ setTimeout(startTyping,350); }
+      io.unobserve(en.target);
+    }
+  });
+},{threshold:0.18});
+document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
