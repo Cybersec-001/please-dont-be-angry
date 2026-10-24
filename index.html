@@ -191,7 +191,11 @@ footer{position:relative;z-index:5;text-align:center;padding:26px 16px 110px;fon
   font-family:'Great Vibes',cursive;font-size:30px;color:var(--red-deep);
   text-shadow:0 2px 12px rgba(201,24,74,.3);line-height:1;
 }
-#yt-holder{position:fixed;bottom:0;right:0;width:2px;height:2px;opacity:.02;pointer-events:none;overflow:hidden}
+/* visible song player (YouTube requires >=200x200 visible player) */
+.song-card{width:100%;max-width:520px;margin:0 auto 28px}
+.song-title{font-size:15px;color:var(--red-deep);margin-bottom:10px;font-weight:500}
+.song-frame{width:100%;aspect-ratio:16/9;min-height:200px;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(201,24,74,.25);background:#1a0a12}
+.song-frame iframe{width:100%!important;height:100%!important;display:block;border:0}
 
 /* heart burst particles */
 .burst{position:fixed;z-index:90;pointer-events:none;font-size:18px;animation:burstFly 1.15s cubic-bezier(.2,.7,.4,1) forwards}
@@ -270,6 +274,10 @@ footer{position:relative;z-index:5;text-align:center;padding:26px 16px 110px;fon
       <svg viewBox="0 0 100 100"><path fill="url(#hg)" d="M50 88 C20 66 8 48 8 32 C8 18 19 9 31 9 C39 9 47 14 50 22 C53 14 61 9 69 9 C81 9 92 18 92 32 C92 48 80 66 50 88 Z"/><circle cx="36" cy="26" r="6" fill="#fff" opacity=".55"/></svg>
     </div>
     <p class="final-msg" id="finalMsg"></p>
+    <div class="song-card">
+      <p class="song-title" id="songTitle"></p>
+      <div class="song-frame"><div id="yt-player"></div></div>
+    </div>
     <button class="btn-glow" id="replayBtn"></button>
   </section>
 
@@ -290,7 +298,6 @@ footer{position:relative;z-index:5;text-align:center;padding:26px 16px 110px;fon
   <button class="mbtn" id="playBtn" aria-label="Play or pause">▶</button>
   <button class="mbtn ghost" id="muteBtn" aria-label="Mute or unmute">🔊</button>
 </div>
-<div id="yt-holder"><div id="yt-player"></div></div>
 <div class="toast" id="toast"></div>
 
 <script src="config.js"></script>
@@ -380,7 +387,7 @@ window.onYouTubeIframeAPIReady=function(){
   try{
     player=new YT.Player("yt-player",{
       videoId:C.song.youtubeId,
-      playerVars:{autoplay:0,controls:0,modestbranding:1,playsinline:1,rel:0,iv_load_policy:3},
+      playerVars:{autoplay:0,controls:1,modestbranding:1,playsinline:1,rel:0,iv_load_policy:3},
       events:{
         onReady:function(){playerReady=true;},
         onStateChange:function(e){updateMusicUI(e.data);},
@@ -396,6 +403,9 @@ function showSongFallback(){
   m.innerHTML='<a class="mbtn ghost" style="width:auto;padding:0 18px;height:40px;font-size:13px;font-weight:500" href="'+C.song.youtubeUrl+'" target="_blank" rel="noopener">▶ Play our song on YouTube</a>';
   m.classList.add("show");
 }
+$("songTitle").textContent = (C.song.sectionTitle || "Our Song \u{1F3B5}");
+window.__songDiag=function(){try{return JSON.stringify({ready:playerReady,failed:playerFailed,started:musicStarted,state:player?player.getPlayerState():null,time:player?player.getCurrentTime():null})}catch(e){return "{err}"}};
+
 function updateMusicUI(state){
   var playing=(state===1);
   $("disc").classList.toggle("spin",playing);
