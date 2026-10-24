@@ -8,6 +8,7 @@ const SITE_CONFIG = {
 
   /* ---------- SONG ---------- */
   song: {
+    sectionTitle: "Our Song 🎵",
     youtubeId: "XzAeHP6QpRE",
     title: "Tumhe Hi Apna Maana Hai",
     artist: "Sachet-Parampara",
